@@ -94,7 +94,7 @@ function SalesReport({ from, to }: { from: string; to: string }) {
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
               <XAxis dataKey="date" tickFormatter={(v) => formatDate(v)} tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.3)' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.3)' }} tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} axisLine={false} tickLine={false} />
-              <Tooltip formatter={(v: number) => [formatCurrency(v), 'Revenue']} labelFormatter={(l) => formatDate(l)} {...tooltipStyle} />
+              <Tooltip formatter={(v) => [formatCurrency(Number(v ?? 0)), 'Revenue']} labelFormatter={(l) => formatDate(l)} {...tooltipStyle} />
               <Bar dataKey="amount" radius={[6, 6, 0, 0]}>
                 {data.chartData.map((_: any, i: number) => (
                   <Cell key={i} fill={`url(#barGrad-${i})`} />
@@ -235,11 +235,11 @@ function PurchasesReport({ from, to }: { from: string; to: string }) {
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie data={data.bySupplier} dataKey="total" nameKey="name" cx="50%" cy="50%" outerRadius={85}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name} ${((Number(percent ?? 0)) * 100).toFixed(0)}%`}
                   labelLine={{ stroke: 'rgba(255,255,255,0.2)' }}>
                   {data.bySupplier.map((_: any, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                 </Pie>
-                <Tooltip formatter={(v: number) => formatCurrency(v)} {...tooltipStyle} />
+                <Tooltip formatter={(v) => formatCurrency(Number(v ?? 0))} {...tooltipStyle} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -341,7 +341,7 @@ function StockReport() {
               <Pie data={data.byCategory} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={75}>
                 {data.byCategory.map((_: any, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
-              <Tooltip formatter={(v: number) => formatCurrency(v)} {...tooltipStyle} />
+              <Tooltip formatter={(v) => formatCurrency(Number(v ?? 0))} {...tooltipStyle} />
               <Legend iconSize={10} wrapperStyle={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)' }} />
             </PieChart>
           </ResponsiveContainer>

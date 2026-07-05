@@ -151,7 +151,7 @@ export default function DashboardPage() {
                   <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.35)' }}
                     tickFormatter={(v) => `${(v/1000).toFixed(0)}k`} axisLine={false} tickLine={false} />
                   <Tooltip
-                    formatter={(v: number) => [formatCurrency(v), 'Revenue']}
+                    formatter={(v) => [formatCurrency(Number(v ?? 0)), 'Revenue']}
                     labelFormatter={(l) => formatDate(l)}
                     contentStyle={{ background: 'rgba(12,18,45,0.95)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', color: '#fff', backdropFilter: 'blur(20px)' }}
                     labelStyle={{ color: 'rgba(255,255,255,0.6)', fontSize: '11px' }}

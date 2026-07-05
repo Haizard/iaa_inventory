@@ -91,14 +91,6 @@ export default function SalesPage() {
     });
   };
 
-  const updateQty = (productId: string, delta: number) =>
-    setCart(prev => prev.map(i => {
-      if (i.productId !== productId) return i;
-      const q = i.quantity + delta;
-      if (q > i.stock) { toast({ title: `Only ${i.stock} in stock`, variant: 'destructive' }); return i; }
-      return { ...i, quantity: Math.max(0, q) };
-    }).filter(i => i.quantity > 0));
-
   const removeItem = (id: string) => {
     setCart(prev => prev.filter(i => i.productId !== id));
     if (selItem === id) { setSelItem(null); setCalcBuf(''); }

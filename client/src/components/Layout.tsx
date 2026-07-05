@@ -33,11 +33,6 @@ export default function Layout() {
     ? [{ to: '/users', label: 'Users', icon: UserCog, end: false }]
     : [];
 
-  const roleGlow: Record<string, string> = {
-    ADMIN:   'text-rose-400   shadow-rose-500/50',
-    MANAGER: 'text-blue-400   shadow-blue-500/50',
-    STAFF:   'text-emerald-400 shadow-emerald-500/50',
-  };
   const roleBg: Record<string, string> = {
     ADMIN:   'bg-rose-500/15   border-rose-500/30   text-rose-300',
     MANAGER: 'bg-blue-500/15   border-blue-500/30   text-blue-300',
