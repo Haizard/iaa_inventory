@@ -4,7 +4,6 @@
   "outputDirectory": "client/dist",
   "functions": {
     "api/index.js": {
-      "memory": 1024,
       "maxDuration": 30
     }
   },
@@ -12,6 +11,9 @@
     {
       "src": "/api/(.*)",
       "dest": "/api/index.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
