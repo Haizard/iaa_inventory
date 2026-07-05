@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import path from 'path';
 
 import authRoutes from './routes/auth.routes';
 import productRoutes from './routes/product.routes';
@@ -20,8 +19,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const projectRoot = path.resolve(__dirname, '..', '..');
-const clientDistPath = path.join(projectRoot, 'client', 'dist');
 
 // Middleware
 app.use(cors({ origin: process.env.CORS_ORIGIN || true, credentials: true }));
@@ -46,18 +43,11 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve the built frontend for single-deployment setups
-if (process.env.NODE_ENV === 'production' || process.env.SERVE_FRONTEND === 'true') {
-  app.use(express.static(clientDistPath));
-
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(clientDistPath, 'index.html'));
+// Only start the HTTP server when running locally (not in Vercel serverless)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
   });
 }
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📦 Serving frontend from ${clientDistPath}`);
-});
 
 export default app;

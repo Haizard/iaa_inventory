@@ -1,13 +1,9 @@
 {
   "name": "iaa-inventory",
-  "private": true,
   "version": "1.0.0",
+  "description": "IAA Inventory Management System",
   "scripts": {
-    "dev": "npm run build && npm --prefix server run dev",
-    "build": "npm --prefix client run build && npm --prefix server run build",
-    "start": "npm run build && npm --prefix server run start"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.0"
+    "build": "npm install --prefix server && npm run build --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "node server/dist/index.js"
   }
 }
