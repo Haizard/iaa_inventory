@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background:           hsl(230 35% 7%);
+  --color-foreground:           hsl(220 20% 95%);
+
+  --color-card:                 rgba(255,255,255,0.06);
+  --color-card-foreground:      hsl(220 20% 95%);
+
+  --color-popover:              hsl(228 30% 12%);
+  --color-popover-foreground:   hsl(220 20% 95%);
+
+  --color-primary:              hsl(213 90% 60%);
+  --color-primary-foreground:   hsl(0 0% 100%);
+
+  --color-secondary:            rgba(255,255,255,0.08);
+  --color-secondary-foreground: hsl(220 20% 90%);
+
+  --color-muted:                rgba(255,255,255,0.06);
+  --color-muted-foreground:     hsl(220 15% 55%);
+
+  --color-accent:               hsl(213 90% 60%);
+  --color-accent-foreground:    hsl(0 0% 100%);
+
+  --color-destructive:          hsl(0 75% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border:               rgba(255,255,255,0.10);
+  --color-input:                rgba(255,255,255,0.08);
+  --color-ring:                 hsl(213 90% 60%);
+
+  --radius: 1rem;
+}
+
+/* ══════════════════════════════════════════════════
+   BASE — animated mesh-gradient background
+══════════════════════════════════════════════════ */
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html { height: 100%; }
+
+  body {
+    min-height: 100%;
+    color: var(--color-foreground);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+
+    /* rich animated gradient mesh */
+    background-color: #080d1a;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%,  rgba(99,102,241,0.35) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 50% at 80% 0%,   rgba(14,165,233,0.30) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 60% at 50% 90%,  rgba(168,85,247,0.25) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 60%,  rgba(34,197,94,0.15)  0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 5%  70%,  rgba(236,72,153,0.18) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+}
+
+/* ══════════════════════════════════════════════════
+   GLASS UTILITY CLASSES
+══════════════════════════════════════════════════ */
+@layer utilities {
+
+  /* Primary glass card */
+  .glass {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  /* Stronger glass for dialogs */
+  .glass-heavy {
+    background: rgba(15, 20, 40, 0.75);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  /* Subtle glass for table rows etc */
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  /* Coloured glass stat cards */
+  .glass-blue   { background: rgba(59, 130, 246, 0.15); border-color: rgba(59,130,246,0.25); }
+  .glass-emerald{ background: rgba(16, 185, 129, 0.15); border-color: rgba(16,185,129,0.25); }
+  .glass-violet { background: rgba(139, 92, 246, 0.15); border-color: rgba(139,92,246,0.25); }
+  .glass-orange { background: rgba(249, 115, 22, 0.15); border-color: rgba(249,115,22,0.25); }
+  .glass-rose   { background: rgba(244, 63, 94,  0.15); border-color: rgba(244,63,94,0.25); }
+  .glass-amber  { background: rgba(245, 158, 11, 0.15); border-color: rgba(245,158,11,0.25); }
+  .glass-cyan   { background: rgba(6,   182, 212, 0.15); border-color: rgba(6,182,212,0.25); }
+
+  /* Hover lift effect */
+  .hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+
+  /* Glow button */
+  .btn-glow {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+    transition: all 0.2s ease;
+  }
+  .btn-glow:hover {
+    box-shadow: 0 6px 28px rgba(99, 102, 241, 0.7);
+    transform: translateY(-1px);
+  }
+  .btn-glow:active { transform: scale(0.97); }
+
+  /* Table row hover */
+  .glass-row:hover {
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* Input glass */
+  .input-glass {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: white !important;
+  }
+  .input-glass::placeholder { color: rgba(255,255,255,0.35) !important; }
+  .input-glass:focus {
+    background: rgba(255,255,255,0.09) !important;
+    border-color: rgba(99,102,241,0.6) !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
+    outline: none !important;
+  }
+
+  /* Badge glass */
+  .badge-success  { background: rgba(16,185,129,0.2);  color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+  .badge-warning  { background: rgba(245,158,11,0.2);  color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .badge-danger   { background: rgba(239,68,68,0.2);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-info     { background: rgba(59,130,246,0.2);  color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+  .badge-neutral  { background: rgba(148,163,184,0.15);color: #cbd5e1; border: 1px solid rgba(148,163,184,0.2);}
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Section divider */
+  .glass-divider { border-color: rgba(255,255,255,0.08); }
+}

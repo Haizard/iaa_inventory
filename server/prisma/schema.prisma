@@ -1,0 +1,225 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STAFF)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sales     Sale[]
+  purchases Purchase[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Brand {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+
+  @@map("brands")
+}
+
+model Supplier {
+  id        String    @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  purchases Purchase[]
+  products  Product[]
+
+  @@map("suppliers")
+}
+
+model Product {
+  id           String    @id @default(uuid())
+  name         String
+  shortDescription String?
+  description  String?
+  sku          String    @unique
+  barcode      String?   @unique
+  imageUrl     String?
+  productType  ProductType @default(PHYSICAL)
+  price        Decimal   @db.Decimal(10, 2)
+  costPrice    Decimal   @db.Decimal(10, 2)
+  wholesalePrice Decimal? @db.Decimal(10, 2)
+  minSellingPrice Decimal? @db.Decimal(10, 2)
+  taxRate      Decimal?  @db.Decimal(5, 2)
+  discountRate Decimal?  @db.Decimal(5, 2)
+  currency     String    @default("TZS")
+  quantity     Int       @default(0)
+  minStock     Int       @default(10)
+  maxStock     Int?
+  trackInventory Boolean @default(true)
+  unit         String    @default("pcs")
+  purchaseUnit String?
+  sellingUnit  String?
+  unitConversion String?
+  warehouse    String?
+  storageLocation String?
+  expiryDate   DateTime?
+  batchNumber  String?
+  status       ProductStatus @default(ACTIVE)
+  canBeSold    Boolean   @default(true)
+  featured     Boolean   @default(false)
+  availableOnline Boolean @default(false)
+  availableInStore Boolean @default(true)
+  allowBackorders Boolean @default(false)
+  supplierSku  String?
+  supplierLeadTimeDays Int?
+  shippingWeight Decimal? @db.Decimal(10, 2)
+  shippingLength Decimal? @db.Decimal(10, 2)
+  shippingWidth  Decimal? @db.Decimal(10, 2)
+  shippingHeight Decimal? @db.Decimal(10, 2)
+  shippingClass  String?
+  categoryId   String
+  category     Category  @relation(fields: [categoryId], references: [id])
+  brandId      String?
+  brand        Brand?    @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  supplierId   String?
+  supplier     Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  saleItems     SaleItem[]
+  purchaseItems PurchaseItem[]
+
+  @@map("products")
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?  @unique
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sales     Sale[]
+
+  @@map("customers")
+}
+
+model Sale {
+  id          String     @id @default(uuid())
+  invoiceNo   String     @unique
+  totalAmount Decimal    @db.Decimal(10, 2)
+  status      SaleStatus @default(COMPLETED)
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  customerId  String?
+  customer    Customer?  @relation(fields: [customerId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  items       SaleItem[]
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id        String  @id @default(uuid())
+  saleId    String
+  sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  subtotal  Decimal @db.Decimal(10, 2)
+
+  @@map("sale_items")
+}
+
+model Purchase {
+  id          String         @id @default(uuid())
+  referenceNo String         @unique
+  totalAmount Decimal        @db.Decimal(10, 2)
+  status      PurchaseStatus @default(RECEIVED)
+  supplierId  String
+  supplier    Supplier       @relation(fields: [supplierId], references: [id])
+  userId      String
+  user        User           @relation(fields: [userId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  items       PurchaseItem[]
+
+  @@map("purchases")
+}
+
+model PurchaseItem {
+  id         String   @id @default(uuid())
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitCost   Decimal  @db.Decimal(10, 2)
+  subtotal   Decimal  @db.Decimal(10, 2)
+
+  @@map("purchase_items")
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum SaleStatus {
+  COMPLETED
+  PENDING
+  CANCELLED
+}
+
+enum PurchaseStatus {
+  RECEIVED
+  PENDING
+  CANCELLED
+}
+
+enum ProductType {
+  PHYSICAL
+  DIGITAL
+  SERVICE
+  BUNDLE
+  VARIABLE
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+  DISCONTINUED
+}
