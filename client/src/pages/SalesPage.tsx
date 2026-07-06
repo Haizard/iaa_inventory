@@ -153,7 +153,7 @@ export default function SalesPage() {
   };
 
   return (
-    <div className="flex h-full gap-3 overflow-hidden">
+    <div className="flex flex-col md:flex-row h-full gap-3 overflow-hidden">
       {/* ── Receipt Modal ─────────────────────────────────────── */}
       {receiptOpen && lastSale && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -306,7 +306,7 @@ export default function SalesPage() {
       {/* ══════════════════════════════════════════
           RIGHT — Cart / Order (dark glass)
       ══════════════════════════════════════════ */}
-      <div className="w-[320px] shrink-0 flex flex-col rounded-2xl overflow-hidden"
+      <div className="w-full md:w-[320px] shrink-0 flex flex-col rounded-2xl overflow-hidden"
         style={{ background: 'rgba(8,13,32,0.82)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', border: '1px solid rgba(255,255,255,0.10)', boxShadow: '0 12px 40px rgba(0,0,0,0.55)' }}>
 
         {/* header */}
