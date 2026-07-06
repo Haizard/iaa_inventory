@@ -76,14 +76,14 @@ function diamond(doc: jsPDF, cx:number,cy:number, hw:number,hh:number,
   doc.setFillColor(...fill);
   doc.setDrawColor(...ACC); doc.setLineWidth(0.5);
   // draw diamond manually
-  const pts = [[cx,cy-hh],[cx+hw,cy],[cx,cy+hh],[cx-hw,cy]];
+  const _pts = [[cx,cy-hh],[cx+hw,cy],[cx,cy+hh],[cx-hw,cy]];
   (doc as any).lines(
     [[hw,hh],[-hw,hh],[-hw,-hh]],
     cx-hw, cy, [1,1], 'FD', true
   );
   // fallback: polygon via moveTo lines
   doc.setFillColor(...fill);
-  const path = `M ${cx} ${cy-hh} L ${cx+hw} ${cy} L ${cx} ${cy+hh} L ${cx-hw} ${cy} Z`;
+  const _path = `M ${cx} ${cy-hh} L ${cx+hw} ${cy} L ${cx} ${cy+hh} L ${cx-hw} ${cy} Z`;
   // jsPDF doesn't support SVG path directly, draw with lines:
   doc.line(cx,cy-hh, cx+hw,cy);
   doc.line(cx+hw,cy, cx,cy+hh);
@@ -91,7 +91,6 @@ function diamond(doc: jsPDF, cx:number,cy:number, hw:number,hh:number,
   doc.line(cx-hw,cy, cx,cy-hh);
   doc.setTextColor(...WHITE); doc.setFont('helvetica','bold'); doc.setFontSize(8);
   doc.text(label, cx, cy+1, {align:'center'});
-  void pts; void path;
 }
 
 // ════════════════════════════════════════════════════════════════════════════
@@ -201,7 +200,7 @@ export function generateUseCaseDiagram() {
 // ════════════════════════════════════════════════════════════════════════════
 export function generateERDiagram() {
   const doc = new jsPDF({unit:'mm', format:'a3', orientation:'landscape'});
-  const W = doc.internal.pageSize.getWidth();
+  const _W = doc.internal.pageSize.getWidth();
   pageSetup(doc);
   title(doc,'Entity Relationship Diagram (ERD)','Database entities, attributes and relationships');
 
