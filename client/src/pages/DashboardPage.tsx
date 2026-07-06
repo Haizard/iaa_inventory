@@ -14,10 +14,10 @@ const GlassCard = ({ children, className }: { children: React.ReactNode; classNa
 
 /* ── stat card ── */
 const StatCard = ({ title, value, sub, icon: Icon, glassClass, iconBg, iconColor, trend }: any) => (
-  <div className={cn('glass rounded-2xl p-5 hover-lift', glassClass)}>
+  <div className={cn('glass rounded-2xl p-4 hover-lift', glassClass)}>
     <div className="flex items-start justify-between mb-4">
       <div className={cn('h-12 w-12 rounded-2xl flex items-center justify-center', iconBg)}>
-        <Icon size={24} weight="bold" className={cn(iconColor)} />
+        <Icon size={20} weight="bold" className={cn(iconColor)} />
       </div>
       {trend && (
         <div className="flex items-center gap-1 text-xs font-semibold text-emerald-400">
@@ -25,9 +25,9 @@ const StatCard = ({ title, value, sub, icon: Icon, glassClass, iconBg, iconColor
         </div>
       )}
     </div>
-    <p className="text-2xl font-bold text-white leading-none mb-1">{value}</p>
-    {sub && <p className="text-xs text-white/40 mt-1">{sub}</p>}
-    <p className="text-xs font-medium text-white/50 mt-2 uppercase tracking-widest">{title}</p>
+    <p className="text-xl font-bold text-white leading-none mb-1">{value}</p>
+    {sub && <p className="text-[11px] text-white/40 mt-1">{sub}</p>}
+    <p className="text-[11px] font-medium text-white/50 mt-2 uppercase tracking-widest">{title}</p>
   </div>
 );
 
@@ -61,14 +61,14 @@ export default function DashboardPage() {
     <div className="space-y-6">
 
       {/* ── Welcome banner ── */}
-      <div className="glass rounded-2xl p-6 flex items-center justify-between"
+      <div className="glass rounded-2xl p-5 flex items-center justify-between"
         style={{ background: 'linear-gradient(135deg,rgba(59,130,246,0.18),rgba(99,102,241,0.12))', borderColor: 'rgba(99,102,241,0.25)' }}>
         <div>
-          <p className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-1">Good day</p>
-          <h1 className="text-2xl font-bold text-white leading-tight">
+          <p className="text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-1">Good day</p>
+          <h1 className="text-xl font-bold text-white leading-tight">
             Welcome back, <span className="text-gradient">{user?.name?.split(' ')[0]}</span> 👋
           </h1>
-          <p className="text-sm text-white/50 mt-1.5">Here's what's happening in your inventory today.</p>
+          <p className="text-xs text-white/50 mt-1">Here's what's happening in your inventory today.</p>
         </div>
         <div className={cn('flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold border backdrop-blur-sm', roleBadge[role])}>
           <ShieldCheck size={16} weight="bold" />{role}
@@ -78,7 +78,7 @@ export default function DashboardPage() {
       {/* ══ STAFF view ══ */}
       {dashboardLevel === 'limited' && (
         <>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-2">
             {[
               { title: 'Record Sales', desc: 'As staff, you can record sales transactions for customers.', accentClass: 'glass-blue', iconBg: 'bg-blue-500/20', iconColor: 'text-blue-400', icon: TrendUp,
                 steps: ['Go to POS / Sales in the sidebar','Tap a product to add it to cart','Set quantity and payment method','Hit Charge to complete the sale'] },
@@ -105,7 +105,7 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {[
               { label: 'Total Products',  value: stats?.totalProducts ?? 0,              icon: Package,       glassClass: 'glass-blue',   iconBg: 'bg-blue-500/20',   iconColor: 'text-blue-400' },
                 { label: 'Low Stock Items', value: stats?.lowStockProducts?.length ?? 0,   icon: Warning, glassClass: 'glass-amber',  iconBg: 'bg-amber-500/20',  iconColor: 'text-amber-400' },
@@ -135,7 +135,7 @@ export default function DashboardPage() {
             ))}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-2">
             {/* Sales Chart */}
             <GlassCard className="p-5">
               <div className="mb-4">
@@ -205,7 +205,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent activity */}
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-2">
             {[
               { title: 'Recent Sales', data: stats?.recentSales, color: 'text-emerald-400', dotBg: 'bg-emerald-400', icon: TrendUp, glassClass: 'glass-emerald',
                 renderAmount: (s: any) => formatCurrency(s.totalAmount), renderRef: (s: any) => s.invoiceNo, renderSub: (s: any) => `${s.user?.name} · ${formatDate(s.createdAt)}` },

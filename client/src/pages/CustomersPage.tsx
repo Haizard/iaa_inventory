@@ -101,8 +101,8 @@ export default function CustomersPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Customers</h1>
-          <p className="text-sm text-white/50 mt-0.5">Manage your customer records</p>
+          <h1 className="text-xl font-bold text-white">Customers</h1>
+          <p className="text-xs text-white/50 mt-0.5">Manage your customer records</p>
         </div>
         {perms.canCreateCustomer && (
           <button
@@ -115,15 +115,15 @@ export default function CustomersPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
         <div className="glass glass-blue rounded-2xl p-5 hover-lift">
           <div className="flex items-start justify-between mb-4">
             <div className="h-11 w-11 rounded-2xl bg-blue-500/20 flex items-center justify-center">
               <Users className="h-5 w-5 text-blue-400" />
             </div>
           </div>
-          <p className="text-2xl font-bold text-white">{customers.length}</p>
-          <p className="text-xs text-white/40 mt-2 uppercase tracking-widest">Total Customers</p>
+          <p className="text-xl font-bold text-white">{customers.length}</p>
+          <p className="text-[11px] text-white/40 mt-2 uppercase tracking-widest">Total Customers</p>
         </div>
         <div className="glass glass-emerald rounded-2xl p-5 hover-lift">
           <div className="flex items-start justify-between mb-4">
@@ -240,46 +240,46 @@ export default function CustomersPage() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-md">
           <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-base font-bold text-white">
               {editCustomer ? 'Edit Customer' : 'Add Customer'}
             </h2>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="px-6 py-5 space-y-4">
+            <div className="px-6 py-5 grid grid-cols-2 gap-3">
               <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">Customer Details</p>
               <div>
-                <label className="text-xs font-medium text-white/60 mb-1.5 block">Name *</label>
+                <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Name *</label>
                 <input
                   {...register('name')}
                   placeholder="Full name"
-                  className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                  className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                 />
                 {errors.name && <p className="text-xs text-rose-400 mt-1">{errors.name.message}</p>}
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60 mb-1.5 block">Email</label>
+                <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Email</label>
                 <input
                   {...register('email')}
                   type="email"
                   placeholder="customer@example.com"
-                  className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                  className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                 />
                 {errors.email && <p className="text-xs text-rose-400 mt-1">{errors.email.message}</p>}
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60 mb-1.5 block">Phone</label>
+                <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Phone</label>
                 <input
                   {...register('phone')}
                   placeholder="+255-..."
-                  className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                  className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-white/60 mb-1.5 block">Address</label>
+                <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Address</label>
                 <input
                   {...register('address')}
                   placeholder="City, Country"
-                  className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                  className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                 />
               </div>
             </div>

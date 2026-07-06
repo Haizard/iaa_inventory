@@ -101,8 +101,8 @@ export default function SettingsPage() {
               <Gear className="h-5 w-5 text-violet-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Admin Settings</h1>
-              <p className="text-sm text-white/50 mt-0.5">System documentation and project resources</p>
+              <h1 className="text-xl font-bold text-white">Admin Settings</h1>
+                <p className="text-xs text-white/50 mt-0.5">System documentation and project resources</p>
             </div>
           </div>
           <button
@@ -121,7 +121,7 @@ export default function SettingsPage() {
             <BookOpen className="h-5 w-5 text-blue-400" />
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">Project Overview</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
             {[
               { label: 'Project', value: 'IAA Inventory Management System' },
               { label: 'Group', value: 'Group No. 86' },
@@ -130,9 +130,9 @@ export default function SettingsPage() {
               { label: 'ORM', value: 'Prisma v5' },
               { label: 'Deployment', value: 'Vercel + Supabase' },
             ].map(item => (
-              <div key={item.label} className="glass rounded-xl p-3">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">{item.label}</p>
-                <p className="text-white/80 font-medium">{item.value}</p>
+              <div key={item.label} className="glass rounded-xl p-2">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-white/30 mb-1">{item.label}</p>
+                <p className="text-white/80 font-medium text-sm">{item.value}</p>
               </div>
             ))}
           </div>
@@ -144,7 +144,7 @@ export default function SettingsPage() {
             <CloudArrowDown className="h-5 w-5 text-emerald-400" />
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">System Modules</h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-2 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 text-xs">
             {[
               ['Authentication', 'JWT-based login with role guards (Admin / Manager / Staff)'],
               ['POS / Sales', 'Point-of-sale with cart, discounts, payment methods, receipt generation'],
@@ -155,7 +155,7 @@ export default function SettingsPage() {
               ['Users', 'User management with role-based access control'],
               ['Documents', 'Auto-generated system diagrams downloadable as PDF'],
             ].map(([mod, desc]) => (
-              <div key={mod} className="flex gap-3 p-3 glass rounded-xl">
+              <div key={mod} className="flex gap-3 p-2 glass rounded-xl">
                 <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-white/80 text-xs">{mod}</p>
@@ -167,7 +167,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Role Permissions */}
-        <div className="glass rounded-2xl p-5">
+          <div className="glass rounded-2xl p-4">
           <div className="flex items-center gap-3 mb-4">
             <Shield className="h-5 w-5 text-rose-400" />
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">Role Permissions</h2>
@@ -217,16 +217,16 @@ export default function SettingsPage() {
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">Project Documentation</h2>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full badge-info">PDF</span>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
             {docs.map(d => (
-              <div key={d.id} className={`glass ${d.glass} rounded-2xl p-5 hover-lift flex flex-col gap-4`}>
+              <div key={d.id} className={`glass ${d.glass} rounded-2xl p-4 hover-lift flex flex-col gap-3`}>
                 <div className="flex items-start gap-3">
                   <div className={`h-11 w-11 rounded-2xl ${d.iconBg} flex items-center justify-center shrink-0`}>
                     <d.icon className={`h-5 w-5 ${d.color}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-white text-sm">{d.title}</p>
-                    <p className="text-white/40 text-xs mt-1 leading-relaxed">{d.description}</p>
+                    <p className="font-bold text-white text-xs">{d.title}</p>
+                    <p className="text-white/40 text-[11px] mt-1 leading-relaxed">{d.description}</p>
                   </div>
                 </div>
                 <button

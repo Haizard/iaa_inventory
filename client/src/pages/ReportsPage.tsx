@@ -77,7 +77,7 @@ function SalesReport({ from, to }: { from: string; to: string }) {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {salesStatCards.map((s) => (
           <div key={s.label} className={`glass ${s.glass} rounded-2xl p-5 hover-lift`}>
             <div className="flex items-start justify-between mb-4">
@@ -85,8 +85,8 @@ function SalesReport({ from, to }: { from: string; to: string }) {
                 <s.icon className={`h-5 w-5 ${s.color}`} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-white">{s.value}</p>
-            <p className="text-xs text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
+            <p className="text-xl font-bold text-white">{s.value}</p>
+            <p className="text-[11px] text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
           </div>
         ))}
       </div>
@@ -117,7 +117,7 @@ function SalesReport({ from, to }: { from: string; to: string }) {
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-2">
         <div className="glass rounded-2xl overflow-hidden">
           <div className="px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h3 className="text-sm font-semibold text-white/80">Top Selling Products</h3>
@@ -230,7 +230,7 @@ function PurchasesReport({ from, to }: { from: string; to: string }) {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {purchStatCards.map((s) => (
           <div key={s.label} className={`glass ${s.glass} rounded-2xl p-5 hover-lift`}>
             <div className="flex items-start justify-between mb-4">
@@ -238,8 +238,8 @@ function PurchasesReport({ from, to }: { from: string; to: string }) {
                 <ShoppingCart className={`h-5 w-5 ${s.color}`} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-white">{s.value}</p>
-            <p className="text-xs text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
+            <p className="text-xl font-bold text-white">{s.value}</p>
+            <p className="text-[11px] text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
           </div>
         ))}
       </div>
@@ -345,7 +345,7 @@ function StockReport() {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {stockStatCards.map((s) => (
           <div key={s.label} className={`glass ${s.glass} rounded-2xl p-5 hover-lift`}>
             <div className="flex items-start justify-between mb-4">
@@ -353,8 +353,8 @@ function StockReport() {
                 <Package className={`h-5 w-5 ${s.color}`} />
               </div>
             </div>
-            <p className="text-2xl font-bold text-white">{s.value}</p>
-            <p className="text-xs text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
+            <p className="text-xl font-bold text-white">{s.value}</p>
+            <p className="text-[11px] text-white/40 mt-2 uppercase tracking-widest">{s.label}</p>
           </div>
         ))}
       </div>

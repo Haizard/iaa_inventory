@@ -124,8 +124,8 @@ export default function UsersPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">User Management</h1>
-            <p className="text-sm text-white/50 mt-0.5">Manage system users and their roles</p>
+            <h1 className="text-xl font-bold text-white">User Management</h1>
+            <p className="text-xs text-white/50 mt-0.5">Manage system users and their roles</p>
           </div>
           <button
             onClick={openCreate}
@@ -136,15 +136,15 @@ export default function UsersPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid gap-4 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <div className="glass glass-blue rounded-2xl p-5 hover-lift">
             <div className="flex items-start justify-between mb-4">
               <div className="h-11 w-11 rounded-2xl bg-blue-500/20 flex items-center justify-center">
                 <Shield className="h-5 w-5 text-blue-400" />
               </div>
             </div>
-            <p className="text-2xl font-bold text-white">{stats.total}</p>
-            <p className="text-xs text-white/40 mt-2 uppercase tracking-widest">Total Users</p>
+            <p className="text-xl font-bold text-white">{stats.total}</p>
+            <p className="text-[11px] text-white/40 mt-2 uppercase tracking-widest">Total Users</p>
           </div>
           <div className="glass glass-rose rounded-2xl p-5 hover-lift">
             <div className="flex items-start justify-between mb-4">
@@ -242,7 +242,7 @@ export default function UsersPage() {
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-md">
             <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-              <h2 className="text-lg font-bold text-white">
+              <h2 className="text-base font-bold text-white">
                 {editUser ? 'Edit User' : 'Create User'}
               </h2>
             </div>
@@ -251,25 +251,25 @@ export default function UsersPage() {
               <form
                 onSubmit={editForm.handleSubmit((d) => updateMutation.mutate({ id: editUser.id, data: d }))}
               >
-                <div className="px-6 py-5 space-y-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">User Details</p>
+                <div className="px-6 py-5 grid grid-cols-2 gap-3">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3 col-span-2">User Details</p>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Name *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Name *</label>
                     <input
                       {...editForm.register('name')}
-                      className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                      className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                     />
                     {editForm.formState.errors.name && (
                       <p className="text-xs text-rose-400 mt-1">{editForm.formState.errors.name.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Role *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Role *</label>
                     <Select
                       defaultValue={editUser.role}
                       onValueChange={(v) => editForm.setValue('role', v as any)}
                     >
-                      <SelectTrigger className="input-glass h-10 rounded-xl border-0 text-white/80">
+                      <SelectTrigger className="input-glass h-9 rounded-xl border-0 text-white/80">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -279,8 +279,8 @@ export default function UsersPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">
+                  <div className="col-span-2">
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">
                       New Password <span className="text-white/30 text-xs font-normal">(leave blank to keep current)</span>
                     </label>
                     <div className="relative">
@@ -288,7 +288,7 @@ export default function UsersPage() {
                         type={showPassword ? 'text' : 'password'}
                         {...editForm.register('password')}
                         placeholder="••••••••"
-                        className="input-glass h-10 w-full rounded-xl px-3 pr-10 text-sm"
+                        className="input-glass h-9 w-full rounded-xl px-3 pr-10 text-xs"
                       />
                       <button
                         type="button"
