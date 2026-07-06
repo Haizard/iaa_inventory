@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Package, Tag, Building2, ShoppingCart,
-  TrendingUp, LogOut, Menu, X, Users, UserCog, FileBarChart2,
+  TrendingUp, LogOut, Menu, X, Users, UserCog, FileBarChart2, Settings,
 } from 'lucide-react';
 import iaaLogo from '@/assets/iaa-logo.jpeg';
 import { useState } from 'react';
@@ -31,7 +31,10 @@ export default function Layout() {
   ];
 
   const adminNav = perms.canManageUsers
-    ? [{ to: '/users', label: 'Users', icon: UserCog, end: false }]
+    ? [
+        { to: '/users',    label: 'Users',    icon: UserCog,  end: false },
+        { to: '/settings', label: 'Settings', icon: Settings, end: false },
+      ]
     : [];
 
   const roleBg: Record<string, string> = {

@@ -14,6 +14,7 @@ import PurchasesPage from '@/pages/PurchasesPage';
 import CustomersPage from '@/pages/CustomersPage';
 import UsersPage from '@/pages/UsersPage';
 import ReportsPage from '@/pages/ReportsPage';
+import SettingsPage from '@/pages/SettingsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="customers" element={<CustomersPage />} />
             <Route path="reports" element={<ReportsPage />} />
             <Route path="users" element={<UsersPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
         <Toaster />
