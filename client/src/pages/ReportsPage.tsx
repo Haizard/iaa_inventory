@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { Download, TrendingUp, ShoppingCart, Package, FileText, Calendar, Printer } from 'lucide-react';
+import { Download, TrendingUp, ShoppingCart, Package, FileText, Calendar } from 'lucide-react';
 import { saveAs } from 'file-saver';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
