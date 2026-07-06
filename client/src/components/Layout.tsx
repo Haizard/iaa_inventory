@@ -3,6 +3,7 @@ import {
   LayoutDashboard, Package, Tag, Building2, ShoppingCart,
   TrendingUp, LogOut, Menu, X, Users, UserCog, FileBarChart2,
 } from 'lucide-react';
+import iaaLogo from '@/assets/iaa-logo.jpeg';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/auth.store';
 import { usePermissions } from '@/hooks/use-permissions';
@@ -73,9 +74,9 @@ export default function Layout() {
 
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="h-10 w-10 rounded-2xl flex items-center justify-center shrink-0"
-          style={{ background: 'linear-gradient(135deg,#3b82f6,#6366f1)', boxShadow: '0 4px 16px rgba(99,102,241,0.5)' }}>
-          <Package className="h-5 w-5 text-white" />
+        <div className="h-10 w-10 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center"
+          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 4px 16px rgba(99,102,241,0.3)' }}>
+          <img src={iaaLogo} alt="IAA Logo" className="h-full w-full object-cover" />
         </div>
         <div>
           <p className="font-bold text-white text-sm leading-none tracking-wide">Inventory IMS</p>

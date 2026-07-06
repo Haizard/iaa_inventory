@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, Search, Receipt, TrendingUp, Package, Calendar,
+  ArrowLeft, Search, Receipt, TrendingUp, Package, Calendar, Download, Printer,
 } from 'lucide-react';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -10,6 +10,7 @@ import {
 import api from '@/lib/api';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { generateSaleReceipt, printReceiptHtml } from '@/lib/pdf';
 
 export default function OrderHistoryPage() {
   const navigate = useNavigate();
@@ -148,12 +149,13 @@ export default function OrderHistoryPage() {
                 <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Total</TableHead>
                 <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Cashier</TableHead>
                 <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Status</TableHead>
+                <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7}>
+                  <TableCell colSpan={8}>
                     <div className="flex flex-col items-center justify-center py-16 text-white/25">
                       <Receipt className="h-12 w-12 mb-3 opacity-40" />
                       <p className="text-sm">No orders found</p>
@@ -183,6 +185,24 @@ export default function OrderHistoryPage() {
                       <span className={statusBadge(s.status)}>
                         {statusLabel[s.status] ?? s.status}
                       </span>
+                    </TableCell>
+                    <TableCell className="py-3 px-6">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => printReceiptHtml(s)}
+                          title="Print Receipt"
+                          className="h-7 w-7 rounded-lg flex items-center justify-center text-white/30 hover:text-white hover:bg-white/10 border border-white/8 transition-all"
+                        >
+                          <Printer className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          onClick={() => generateSaleReceipt(s)}
+                          title="Download PDF"
+                          className="h-7 w-7 rounded-lg flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))

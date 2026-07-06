@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { Download, TrendingUp, ShoppingCart, Package, FileText, Calendar } from 'lucide-react';
+import { Download, TrendingUp, ShoppingCart, Package, FileText, Calendar, Printer } from 'lucide-react';
 import { saveAs } from 'file-saver';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -14,6 +14,7 @@ import { formatCurrency, formatDate } from '@/lib/utils';
 import { usePermissions } from '@/hooks/use-permissions';
 import RoleGuard from '@/components/RoleGuard';
 import { cn } from '@/lib/utils';
+import { generateSalesReportPDF, generatePurchasesReportPDF, generateStockReportPDF } from '@/lib/pdf';
 
 const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
 
@@ -50,13 +51,18 @@ function SalesReport({ from, to }: { from: string; to: string }) {
     enabled: !!from && !!to,
   });
 
-  const handleExport = () => {
+  const handleExportCSV = () => {
     if (!data) return;
     exportCSV(
       `sales-report-${from}-${to}.csv`,
       ['Invoice No', 'Date', 'Customer', 'Recorded By', 'Total (TZS)', 'Status'],
       data.sales.map((s: any) => [s.invoiceNo, formatDate(s.createdAt), s.customer?.name || 'Walk-in', s.user?.name, Number(s.totalAmount), s.status])
     );
+  };
+
+  const handleExportPDF = () => {
+    if (!data) return;
+    generateSalesReportPDF(data, from, to);
   };
 
   if (isLoading) return <Spinner />;
@@ -146,9 +152,14 @@ function SalesReport({ from, to }: { from: string; to: string }) {
         <div className="glass rounded-2xl overflow-hidden">
           <div className="px-5 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h3 className="text-sm font-semibold text-white/80">Sales Transactions</h3>
-            <button onClick={handleExport} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
-              <Download className="h-3 w-3" /> Export CSV
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button onClick={handleExportCSV} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <Download className="h-3 w-3" /> CSV
+              </button>
+              <button onClick={handleExportPDF} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <FileText className="h-3 w-3" /> PDF
+              </button>
+            </div>
           </div>
           <Table>
             <TableHeader>
@@ -194,13 +205,18 @@ function PurchasesReport({ from, to }: { from: string; to: string }) {
     enabled: !!from && !!to,
   });
 
-  const handleExport = () => {
+  const handleExportCSV = () => {
     if (!data) return;
     exportCSV(
       `purchases-report-${from}-${to}.csv`,
       ['Reference', 'Date', 'Supplier', 'Total (TZS)', 'Status'],
       data.purchases.map((p: any) => [p.referenceNo, formatDate(p.createdAt), p.supplier?.name, Number(p.totalAmount), p.status])
     );
+  };
+
+  const handleExportPDF = () => {
+    if (!data) return;
+    generatePurchasesReportPDF(data, from, to);
   };
 
   if (isLoading) return <Spinner />;
@@ -248,9 +264,14 @@ function PurchasesReport({ from, to }: { from: string; to: string }) {
         <div className="glass rounded-2xl overflow-hidden">
           <div className="px-5 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h3 className="text-sm font-semibold text-white/80">Purchase Orders</h3>
-            <button onClick={handleExport} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
-              <Download className="h-3 w-3" /> Export CSV
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button onClick={handleExportCSV} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <Download className="h-3 w-3" /> CSV
+              </button>
+              <button onClick={handleExportPDF} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <FileText className="h-3 w-3" /> PDF
+              </button>
+            </div>
           </div>
           <Table>
             <TableHeader>
@@ -295,7 +316,7 @@ function StockReport() {
     queryFn: () => api.get('/reports/stock').then((r) => r.data),
   });
 
-  const handleExport = () => {
+  const handleExportCSV = () => {
     if (!data) return;
     exportCSV(
       'stock-report.csv',
@@ -304,6 +325,11 @@ function StockReport() {
         Number(p.costPrice), Number(p.price), Number(p.costPrice) * p.quantity,
         p.quantity === 0 ? 'OUT OF STOCK' : p.quantity <= p.minStock ? 'LOW STOCK' : 'OK'])
     );
+  };
+
+  const handleExportPDF = () => {
+    if (!data) return;
+    generateStockReportPDF(data);
   };
 
   if (isLoading) return <Spinner />;
@@ -350,9 +376,14 @@ function StockReport() {
         <div className="glass rounded-2xl overflow-hidden lg:col-span-2">
           <div className="px-5 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h3 className="text-sm font-semibold text-white/80">Stock List</h3>
-            <button onClick={handleExport} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
-              <Download className="h-3 w-3" /> Export CSV
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button onClick={handleExportCSV} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <Download className="h-3 w-3" /> CSV
+              </button>
+              <button onClick={handleExportPDF} className="flex items-center gap-1.5 px-3 h-7 rounded-xl text-xs font-semibold text-white/50 hover:text-white hover:bg-white/10 border border-white/10 transition-all">
+                <FileText className="h-3 w-3" /> PDF
+              </button>
+            </div>
           </div>
           <div className="overflow-y-auto max-h-80">
             <Table>

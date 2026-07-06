@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Trash2, ShoppingCart } from 'lucide-react';
+import { Plus, Trash2, ShoppingCart, Download, Printer } from 'lucide-react';
 import {
   Dialog, DialogContent,
 } from '@/components/ui/dialog';
@@ -15,6 +15,7 @@ import { formatCurrency, formatDate } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 import { usePermissions } from '@/hooks/use-permissions';
 import RoleGuard from '@/components/RoleGuard';
+import { generatePurchaseReceipt } from '@/lib/pdf';
 
 interface PurchaseItem {
   productId: string;
@@ -136,6 +137,7 @@ export default function PurchasesPage() {
                   <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Items</TableHead>
                   <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Total Cost</TableHead>
                   <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Status</TableHead>
+                  <TableHead className="text-[10px] font-bold uppercase tracking-widest text-white/30 py-3 px-6">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -172,6 +174,17 @@ export default function PurchasesPage() {
                         ) : (
                           <span className="badge-warning text-[10px] font-bold px-2.5 py-1 rounded-full">{p.status}</span>
                         )}
+                      </TableCell>
+                      <TableCell className="py-3 px-6">
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => generatePurchaseReceipt(p)}
+                            title="Download Purchase Order PDF"
+                            className="h-7 w-7 rounded-lg flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
+                          >
+                            <Download className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))

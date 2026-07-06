@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
   Search, ShoppingCart, CreditCard, Banknote, Smartphone,
-  User, X, Package, Receipt, History, Tag, Delete,
+  User, X, Package, Receipt, History, Tag, Delete, Download, Printer,
 } from 'lucide-react';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -13,6 +13,7 @@ import { formatCurrency } from '@/lib/utils';
 import { toast } from '@/hooks/use-toast';
 import { usePermissions } from '@/hooks/use-permissions';
 import { cn } from '@/lib/utils';
+import { generateSaleReceipt, printReceiptHtml } from '@/lib/pdf';
 
 interface CartItem {
   productId: string;
@@ -62,6 +63,8 @@ export default function SalesPage() {
   const [amtPaid,   setAmtPaid]  = useState('');
   const [selItem,   setSelItem]  = useState<string | null>(null);
   const [calcBuf,   setCalcBuf]  = useState('');
+  const [lastSale,  setLastSale] = useState<any>(null);
+  const [receiptOpen, setReceiptOpen] = useState(false);
 
   const { data: products   = [] } = useQuery({ queryKey: ['products'],   queryFn: () => api.get('/products').then(r => r.data) });
   const { data: categories = [] } = useQuery({ queryKey: ['categories'], queryFn: () => api.get('/categories').then(r => r.data) });
@@ -128,6 +131,15 @@ export default function SalesPage() {
       qc.invalidateQueries({ queryKey: ['sales'] });
       qc.invalidateQueries({ queryKey: ['products'] });
       qc.invalidateQueries({ queryKey: ['dashboard-stats'] });
+      // fetch full sale with items for receipt
+      api.get(`/sales/${res.data.id}`).then(r => {
+        setLastSale(r.data);
+        setReceiptOpen(true);
+      }).catch(() => {
+        // fallback: use response data directly
+        setLastSale(res.data);
+        setReceiptOpen(true);
+      });
       toast({ title: `✓ Sale recorded — ${res.data.invoiceNo}`, description: `Total: ${formatCurrency(total)}` });
       clearCart();
     },
@@ -142,6 +154,43 @@ export default function SalesPage() {
 
   return (
     <div className="flex h-full gap-3 overflow-hidden">
+      {/* ── Receipt Modal ─────────────────────────────────────── */}
+      {receiptOpen && lastSale && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="glass-heavy rounded-2xl border border-white/10 shadow-2xl p-0 overflow-hidden text-white w-full max-w-sm mx-4">
+            {/* header */}
+            <div className="flex items-center justify-between px-5 py-4"
+              style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', background: 'linear-gradient(135deg,rgba(59,130,246,0.2),rgba(99,102,241,0.15))' }}>
+              <span className="font-bold flex items-center gap-2 text-sm"><Receipt className="h-4 w-4 text-blue-400" /> Sale Receipt</span>
+              <button onClick={() => setReceiptOpen(false)} className="h-7 w-7 rounded-lg flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            {/* body */}
+            <div className="px-5 py-4 space-y-2 text-sm">
+              <div className="flex justify-between"><span className="text-white/50">Invoice</span><span className="font-mono font-bold text-blue-400">{lastSale.invoiceNo}</span></div>
+              <div className="flex justify-between"><span className="text-white/50">Customer</span><span>{lastSale.customer?.name ?? 'Walk-in'}</span></div>
+              <div className="flex justify-between"><span className="text-white/50">Cashier</span><span>{lastSale.user?.name ?? '—'}</span></div>
+              <div className="flex justify-between"><span className="text-white/50">Items</span><span>{lastSale.items?.length ?? '—'}</span></div>
+              <div className="flex justify-between pt-2 border-t border-white/10">
+                <span className="font-bold text-white/80">Total</span>
+                <span className="font-extrabold text-emerald-400 text-base">{formatCurrency(lastSale.totalAmount)}</span>
+              </div>
+            </div>
+            {/* actions */}
+            <div className="flex gap-2 px-5 py-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+              <button onClick={() => printReceiptHtml(lastSale)}
+                className="flex-1 flex items-center justify-center gap-2 h-9 rounded-xl text-sm font-semibold glass hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all">
+                <Printer className="h-4 w-4" /> Print
+              </button>
+              <button onClick={() => generateSaleReceipt(lastSale)}
+                className="flex-1 flex items-center justify-center gap-2 h-9 rounded-xl text-sm font-semibold btn-glow text-white transition-all">
+                <Download className="h-4 w-4" /> Download PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ══════════════════════════════════════════
           LEFT — Product Browser (glass card)
