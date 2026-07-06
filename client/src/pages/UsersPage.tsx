@@ -240,7 +240,7 @@ export default function UsersPage() {
 
         {/* Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-md">
+          <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-xl mx-4">
             <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
               <h2 className="text-base font-bold text-white">
                 {editUser ? 'Edit User' : 'Create User'}
@@ -251,8 +251,8 @@ export default function UsersPage() {
               <form
                 onSubmit={editForm.handleSubmit((d) => updateMutation.mutate({ id: editUser.id, data: d }))}
               >
-                <div className="px-6 py-5 grid grid-cols-2 gap-3">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3 col-span-2">User Details</p>
+                <div className="px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3 col-span-1 sm:col-span-2">User Details</p>
                   <div>
                     <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Name *</label>
                     <input
@@ -321,39 +321,39 @@ export default function UsersPage() {
               <form
                 onSubmit={createForm.handleSubmit((d) => createMutation.mutate(d))}
               >
-                <div className="px-6 py-5 space-y-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">New User Details</p>
+                <div className="px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3 col-span-1 sm:col-span-2">New User Details</p>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Name *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Name *</label>
                     <input
                       {...createForm.register('name')}
                       placeholder="Full name"
-                      className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                      className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                     />
                     {createForm.formState.errors.name && (
                       <p className="text-xs text-rose-400 mt-1">{createForm.formState.errors.name.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Email *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Email *</label>
                     <input
                       {...createForm.register('email')}
                       type="email"
                       placeholder="user@inventory.com"
-                      className="input-glass h-10 w-full rounded-xl px-3 text-sm"
+                      className="input-glass h-9 w-full rounded-xl px-3 text-xs"
                     />
                     {createForm.formState.errors.email && (
                       <p className="text-xs text-rose-400 mt-1">{createForm.formState.errors.email.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Password *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Password *</label>
                     <div className="relative">
                       <input
                         type={showPassword ? 'text' : 'password'}
                         {...createForm.register('password')}
                         placeholder="Min 6 characters"
-                        className="input-glass h-10 w-full rounded-xl px-3 pr-10 text-sm"
+                        className="input-glass h-9 w-full rounded-xl px-3 pr-10 text-xs"
                       />
                       <button
                         type="button"
@@ -368,9 +368,9 @@ export default function UsersPage() {
                     )}
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-white/60 mb-1.5 block">Role *</label>
+                    <label className="text-[11px] font-medium text-white/60 mb-1.5 block">Role *</label>
                     <Select defaultValue="STAFF" onValueChange={(v) => createForm.setValue('role', v as any)}>
-                      <SelectTrigger className="input-glass h-10 rounded-xl border-0 text-white/80">
+                      <SelectTrigger className="input-glass h-9 rounded-xl border-0 text-white/80">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
