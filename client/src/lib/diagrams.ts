@@ -71,28 +71,6 @@ function arrow(doc: jsPDF, x1:number,y1:number, x2:number,y2:number,
   }
 }
 
-function diamond(doc: jsPDF, cx:number,cy:number, hw:number,hh:number,
-  fill:[number,number,number], label:string) {
-  doc.setFillColor(...fill);
-  doc.setDrawColor(...ACC); doc.setLineWidth(0.5);
-  // draw diamond manually
-  const _pts = [[cx,cy-hh],[cx+hw,cy],[cx,cy+hh],[cx-hw,cy]];
-  (doc as any).lines(
-    [[hw,hh],[-hw,hh],[-hw,-hh]],
-    cx-hw, cy, [1,1], 'FD', true
-  );
-  // fallback: polygon via moveTo lines
-  doc.setFillColor(...fill);
-  const _path = `M ${cx} ${cy-hh} L ${cx+hw} ${cy} L ${cx} ${cy+hh} L ${cx-hw} ${cy} Z`;
-  // jsPDF doesn't support SVG path directly, draw with lines:
-  doc.line(cx,cy-hh, cx+hw,cy);
-  doc.line(cx+hw,cy, cx,cy+hh);
-  doc.line(cx,cy+hh, cx-hw,cy);
-  doc.line(cx-hw,cy, cx,cy-hh);
-  doc.setTextColor(...WHITE); doc.setFont('helvetica','bold'); doc.setFontSize(8);
-  doc.text(label, cx, cy+1, {align:'center'});
-}
-
 // ════════════════════════════════════════════════════════════════════════════
 // 1. USE CASE DIAGRAM
 // ════════════════════════════════════════════════════════════════════════════
@@ -200,7 +178,6 @@ export function generateUseCaseDiagram() {
 // ════════════════════════════════════════════════════════════════════════════
 export function generateERDiagram() {
   const doc = new jsPDF({unit:'mm', format:'a3', orientation:'landscape'});
-  const _W = doc.internal.pageSize.getWidth();
   pageSetup(doc);
   title(doc,'Entity Relationship Diagram (ERD)','Database entities, attributes and relationships');
 
@@ -289,7 +266,6 @@ export function generateERDiagram() {
 
   footer(doc);
   doc.save('erd-diagram.pdf');
-  void [eUser,eCat,eBrand,eSupp,eProd,eCust,eSale,eSItem,ePurch,ePItem];
 }
 
 // ════════════════════════════════════════════════════════════════════════════
