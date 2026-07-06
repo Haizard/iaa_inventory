@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Search, Pencil, Trash2, AlertTriangle, Package } from 'lucide-react';
+import { Plus, MagnifyingGlass, PencilSimple, Trash, Warning, Package } from '@phosphor-icons/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -266,7 +266,7 @@ export default function ProductsPage() {
             onClick={openCreate}
             className="btn-glow flex items-center gap-2 px-4 h-9 text-white text-sm font-semibold rounded-xl transition-all"
           >
-            <Plus className="h-4 w-4" /> Add Product
+            <Plus size={20} weight="bold" /> Add Product
           </button>
         )}
       </div>
@@ -274,7 +274,7 @@ export default function ProductsPage() {
       {/* Filters */}
       <div className="glass rounded-2xl p-4 flex gap-3 flex-wrap">
         <div className="relative flex-1 min-w-60">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+          <MagnifyingGlass size={18} weight="bold" className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
           <input
             placeholder="Search products..."
             value={search}
@@ -291,7 +291,7 @@ export default function ProductsPage() {
               : 'border-white/10 text-white/50 hover:bg-white/8 hover:text-white/80'
           )}
         >
-          <AlertTriangle className="h-4 w-4" />
+            <Warning className="h-4 w-4" />
           Low Stock
         </button>
       </div>
@@ -326,7 +326,7 @@ export default function ProductsPage() {
                 <TableRow>
                   <TableCell colSpan={10}>
                     <div className="flex flex-col items-center justify-center py-16 text-white/25">
-                      <Package className="h-12 w-12 mb-3 opacity-40" />
+                      <Package size={48} weight="bold" className="mb-3 opacity-40" />
                       <p className="text-sm">No products found</p>
                     </div>
                   </TableCell>
@@ -376,7 +376,7 @@ export default function ProductsPage() {
                             onClick={() => openEdit(product)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
                           >
-                            <Pencil className="h-3.5 w-3.5" />
+                            <PencilSimple className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {perms.canDeleteProduct && (
@@ -384,7 +384,7 @@ export default function ProductsPage() {
                             onClick={() => deleteMutation.mutate(product.id)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 border border-white/8 transition-all"
                           >
-                            <Trash2 className="h-3.5 w-3.5" />
+                            <Trash className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {!perms.canEditProduct && !perms.canDeleteProduct && (

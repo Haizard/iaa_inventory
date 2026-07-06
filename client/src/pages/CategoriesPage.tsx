@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Pencil, Trash2, Tag } from 'lucide-react';
+import { Plus, PencilSimple, Trash, Tag } from '@phosphor-icons/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -97,7 +97,7 @@ export default function CategoriesPage() {
             onClick={openCreate}
             className="btn-glow flex items-center gap-2 px-4 h-9 text-white text-sm font-semibold rounded-xl transition-all"
           >
-            <Plus className="h-4 w-4" /> Add Category
+            <Plus size={20} weight="bold" /> Add Category
           </button>
         )}
       </div>
@@ -126,7 +126,7 @@ export default function CategoriesPage() {
                 <TableRow>
                   <TableCell colSpan={4}>
                     <div className="flex flex-col items-center justify-center py-16 text-white/25">
-                      <Tag className="h-12 w-12 mb-3 opacity-40" />
+                      <Tag size={48} weight="bold" className="mb-3 opacity-40" />
                       <p className="text-sm">No categories yet</p>
                     </div>
                   </TableCell>
@@ -157,7 +157,7 @@ export default function CategoriesPage() {
                             onClick={() => openEdit(cat)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
                           >
-                            <Pencil className="h-3.5 w-3.5" />
+                            <PencilSimple className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {perms.canDeleteCategory && (
@@ -165,7 +165,7 @@ export default function CategoriesPage() {
                             onClick={() => deleteMutation.mutate(cat.id)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 border border-white/8 transition-all"
                           >
-                            <Trash2 className="h-3.5 w-3.5" />
+                            <Trash className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {!perms.canEditCategory && (

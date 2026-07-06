@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Trash2, ShoppingCart, Download } from 'lucide-react';
+import { Plus, Trash, ShoppingCart, Download } from '@phosphor-icons/react';
 import {
   Dialog, DialogContent,
 } from '@/components/ui/dialog';
@@ -113,7 +113,7 @@ export default function PurchasesPage() {
               onClick={() => { setItems([]); setSupplierId(''); setDialogOpen(true); }}
               className="btn-glow flex items-center gap-2 px-4 h-9 text-white text-sm font-semibold rounded-xl transition-all"
             >
-              <Plus className="h-4 w-4" /> New Purchase
+              <Plus size={20} weight="bold" /> New Purchase
             </button>
           )}
         </div>
@@ -145,7 +145,7 @@ export default function PurchasesPage() {
                   <TableRow>
                     <TableCell colSpan={6}>
                       <div className="flex flex-col items-center justify-center py-16 text-white/25">
-                        <ShoppingCart className="h-12 w-12 mb-3 opacity-40" />
+                        <ShoppingCart size={48} weight="bold" className="mb-3 opacity-40" />
                         <p className="text-sm">No purchases yet</p>
                       </div>
                     </TableCell>
@@ -298,7 +298,7 @@ export default function PurchasesPage() {
                               onClick={() => removeItem(item.productId)}
                               className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 border border-white/8 transition-all"
                             >
-                              <Trash2 className="h-3.5 w-3.5" />
+                              <Trash className="h-3.5 w-3.5" />
                             </button>
                           </TableCell>
                         </TableRow>

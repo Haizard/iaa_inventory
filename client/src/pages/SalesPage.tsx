@@ -2,9 +2,9 @@ import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
-  Search, ShoppingCart, CreditCard, Banknote, Smartphone,
-  User, X, Package, Receipt, History, Tag, Delete, Download, Printer,
-} from 'lucide-react';
+  MagnifyingGlass, ShoppingCart, CreditCard, Money, DeviceMobile,
+  User, X, Package, Receipt, Clock, Tag, Trash, Download, Printer,
+} from '@phosphor-icons/react';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -201,14 +201,14 @@ export default function SalesPage() {
         {/* top bar */}
         <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+            <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
             <input type="text" placeholder="Search name or SKU…" value={search} onChange={e => setSearch(e.target.value)}
               className="input-glass h-9 w-full rounded-xl pl-9 pr-3 text-sm" />
           </div>
           <button onClick={() => navigate('/sales/history')}
             className="flex items-center gap-1.5 px-3 h-9 rounded-xl text-xs font-semibold text-white/50 hover:text-white transition-all shrink-0"
             style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.10)' }}>
-            <History className="h-3.5 w-3.5" /> Order History
+            <Clock className="h-3.5 w-3.5" /> Order History
           </button>
         </div>
 
@@ -422,7 +422,7 @@ export default function SalesPage() {
         <div className="px-3 py-2.5 shrink-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <p className="text-[9px] font-bold uppercase tracking-widest text-white/25 mb-2">Payment Method</p>
           <div className="grid grid-cols-3 gap-1.5">
-            {([['CASH','Cash',<Banknote className="h-3.5 w-3.5"/>],['CARD','Card',<CreditCard className="h-3.5 w-3.5"/>],['MOBILE','Mobile',<Smartphone className="h-3.5 w-3.5"/>]] as const).map(([val, lbl, ico]) => (
+            {([['CASH','Cash',<Money className="h-3.5 w-3.5"/>],['CARD','Card',<CreditCard className="h-3.5 w-3.5"/>],['MOBILE','Mobile',<DeviceMobile className="h-3.5 w-3.5"/>]] as const).map(([val, lbl, ico]) => (
               <button key={val} onClick={() => setPayMethod(val as PaymentMethod)}
                 className={cn('flex flex-col items-center gap-1 py-2.5 rounded-xl text-[10px] font-bold border transition-all',
                   payMethod === val
@@ -459,7 +459,7 @@ export default function SalesPage() {
                 style={k === '⌫'
                   ? { background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.2)' }
                   : { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                {k === '⌫' ? <Delete className="h-4 w-4" /> : k}
+                  {k === '⌫' ? <Trash className="h-4 w-4" /> : k}
               </button>
             ))}
           </div>

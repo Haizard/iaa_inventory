@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Package, Lock, Mail } from 'lucide-react';
+import { Lock, EnvelopeSimple } from '@phosphor-icons/react';
+import iaaLogo from '@/assets/iaa-logo.jpeg';
 import { useAuthStore } from '@/store/auth.store';
 import { toast } from '@/hooks/use-toast';
 import api from '@/lib/api';
@@ -51,12 +52,11 @@ export default function LoginPage() {
           <div className="px-8 pt-8 pb-8">
             {/* Logo */}
             <div className="flex flex-col items-center mb-8">
-              <div
-                className="rounded-2xl p-4 mb-4 shadow-lg"
-                style={{ background: 'linear-gradient(135deg,#3b82f6,#6366f1)' }}
-              >
-                <Package className="h-9 w-9 text-white" />
-              </div>
+              <img
+                src={iaaLogo}
+                alt="IAA Logo"
+                className="w-20 h-20 rounded-2xl mb-4 shadow-lg object-cover border-2 border-blue-500/30"
+              />
               <h1 className="text-2xl font-bold text-white">Inventory System</h1>
               <p className="text-sm text-white/50 mt-1">Institute of Accountancy Arusha</p>
             </div>
@@ -66,7 +66,7 @@ export default function LoginPage() {
               <div>
                 <label className="text-xs font-medium text-white/60 mb-1.5 block">Email Address</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+                  <EnvelopeSimple className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
                   <input
                     id="email"
                     type="email"

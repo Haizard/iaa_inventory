@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, Search, Receipt, TrendingUp, Package, Calendar, Download, Printer,
-} from 'lucide-react';
+  ArrowLeft, MagnifyingGlass, Receipt, TrendUp, Package, Calendar, Download, Printer,
+} from '@phosphor-icons/react';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table';
@@ -56,7 +56,7 @@ export default function OrderHistoryPage() {
           onClick={() => navigate('/sales')}
           className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition font-medium"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to POS
+          <ArrowLeft size={20} weight="bold" /> Back to POS
         </button>
         <div className="h-4 w-px bg-white/10" />
         <div>
@@ -81,7 +81,7 @@ export default function OrderHistoryPage() {
         <div className="glass glass-emerald rounded-2xl p-5 hover-lift">
           <div className="flex items-start justify-between mb-4">
             <div className="h-11 w-11 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-emerald-400" />
+              <TrendUp className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
           <p className="text-2xl font-bold text-white">{formatCurrency(totalRevenue)}</p>
@@ -103,7 +103,7 @@ export default function OrderHistoryPage() {
       {/* filters */}
       <div className="glass rounded-2xl p-4 flex items-center gap-3 flex-wrap">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+          <MagnifyingGlass size={18} weight="bold" className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
           <input
             type="text"
             placeholder="Search by invoice, customer, cashier…"
@@ -157,7 +157,7 @@ export default function OrderHistoryPage() {
                 <TableRow>
                   <TableCell colSpan={8}>
                     <div className="flex flex-col items-center justify-center py-16 text-white/25">
-                      <Receipt className="h-12 w-12 mb-3 opacity-40" />
+                      <Receipt size={48} weight="bold" className="mb-3 opacity-40" />
                       <p className="text-sm">No orders found</p>
                     </div>
                   </TableCell>

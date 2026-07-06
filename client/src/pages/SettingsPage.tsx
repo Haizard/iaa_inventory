@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {
-  Settings, FileText, GitBranch, Database, Activity,
-  Download, CheckCircle, BookOpen, Shield, Server,
-} from 'lucide-react';
+  Gear, FileText, GitBranch, Database, MonitorPlay,
+  Download, CheckCircle, BookOpen, Shield, CloudArrowDown,
+} from '@phosphor-icons/react';
 import RoleGuard from '@/components/RoleGuard';
 import { usePermissions } from '@/hooks/use-permissions';
 import { cn } from '@/lib/utils';
@@ -65,7 +65,7 @@ export default function SettingsPage() {
       id: 'flowchart',
       title: 'System Flowchart',
       description: 'End-to-end process flow covering authentication, dashboard navigation, POS sales checkout and reporting workflows.',
-      icon: Activity,
+      icon: MonitorPlay,
       color: 'text-emerald-400',
       glass: 'glass-emerald',
       iconBg: 'bg-emerald-500/20',
@@ -98,7 +98,7 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-violet-500/20 rounded-xl p-2.5">
-              <Settings className="h-5 w-5 text-violet-400" />
+              <Gear className="h-5 w-5 text-violet-400" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Admin Settings</h1>
@@ -141,7 +141,7 @@ export default function SettingsPage() {
         {/* System Info */}
         <div className="glass rounded-2xl p-5">
           <div className="flex items-center gap-3 mb-4">
-            <Server className="h-5 w-5 text-emerald-400" />
+            <CloudArrowDown className="h-5 w-5 text-emerald-400" />
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">System Modules</h2>
           </div>
           <div className="grid sm:grid-cols-2 gap-2 text-sm">

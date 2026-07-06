@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { Download, TrendingUp, ShoppingCart, Package, FileText, Calendar } from 'lucide-react';
+import { Download, TrendUp, ShoppingCart, Package, FileText, Calendar } from '@phosphor-icons/react';
 import { saveAs } from 'file-saver';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -69,10 +69,10 @@ function SalesReport({ from, to }: { from: string; to: string }) {
   if (!data) return null;
 
   const salesStatCards = [
-    { label: 'Total Revenue',  value: formatCurrency(data.summary.totalRevenue),  icon: TrendingUp, glass: 'glass-emerald', bg: 'bg-emerald-500/20', color: 'text-emerald-400' },
+    { label: 'Total Revenue',  value: formatCurrency(data.summary.totalRevenue),  icon: TrendUp, glass: 'glass-emerald', bg: 'bg-emerald-500/20', color: 'text-emerald-400' },
     { label: 'Transactions',   value: data.summary.totalTransactions,              icon: FileText,   glass: 'glass-blue',    bg: 'bg-blue-500/20',    color: 'text-blue-400' },
-    { label: 'Completed',      value: data.summary.completedCount,                icon: TrendingUp, glass: 'glass-violet',  bg: 'bg-violet-500/20',  color: 'text-violet-400' },
-    { label: 'Cancelled',      value: data.summary.cancelledCount,                icon: TrendingUp, glass: 'glass-rose',    bg: 'bg-rose-500/20',    color: 'text-rose-400' },
+    { label: 'Completed',      value: data.summary.completedCount,                icon: TrendUp, glass: 'glass-violet',  bg: 'bg-violet-500/20',  color: 'text-violet-400' },
+    { label: 'Cancelled',      value: data.summary.cancelledCount,                icon: TrendUp, glass: 'glass-rose',    bg: 'bg-rose-500/20',    color: 'text-rose-400' },
   ];
 
   return (
@@ -437,7 +437,7 @@ export default function ReportsPage() {
   const [to,   setTo]   = useState(today);
 
   const tabs: { key: ReportTab; label: string; icon: React.ElementType }[] = [
-    { key: 'sales',     label: 'Sales Report',     icon: TrendingUp },
+    { key: 'sales',     label: 'Sales Report',     icon: TrendUp },
     ...(role !== 'STAFF' ? [{ key: 'purchases' as ReportTab, label: 'Purchases Report', icon: ShoppingCart }] : []),
     { key: 'stock',     label: 'Stock Report',     icon: Package },
   ];

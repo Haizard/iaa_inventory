@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Pencil, Trash2, Shield, Eye, EyeOff } from 'lucide-react';
+import { Plus, PencilSimple, Trash, Shield, Eye, EyeSlash } from '@phosphor-icons/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -220,14 +220,14 @@ export default function UsersPage() {
                           onClick={() => openEdit(u)}
                           className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
                         >
-                          <Pencil className="h-3.5 w-3.5" />
+                          <PencilSimple className="h-3.5 w-3.5" />
                         </button>
                         <button
                           disabled={u.id === currentUser?.id}
                           onClick={() => deleteMutation.mutate(u.id)}
                           className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 border border-white/8 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                         >
-                          <Trash2 className="h-3.5 w-3.5" />
+                          <Trash className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     </TableCell>
@@ -295,7 +295,7 @@ export default function UsersPage() {
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? <EyeSlash className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
                   </div>
@@ -360,7 +360,7 @@ export default function UsersPage() {
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        {showPassword ? <EyeSlash className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
                     {createForm.formState.errors.password && (

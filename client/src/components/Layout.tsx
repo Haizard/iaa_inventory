@@ -1,8 +1,8 @@
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, Package, Tag, Building2, ShoppingCart,
-  TrendingUp, LogOut, Menu, X, Users, UserCog, FileBarChart2, Settings,
-} from 'lucide-react';
+  House, Package, Tag, Building, ShoppingCart,
+  TrendUp, SignOut, List, X, Users, UserGear, ChartBar, Gear,
+} from '@phosphor-icons/react';
 import iaaLogo from '@/assets/iaa-logo.jpeg';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/auth.store';
@@ -20,20 +20,20 @@ export default function Layout() {
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const mainNav = [
-    { to: '/',           label: 'Dashboard',   icon: LayoutDashboard, end: true },
+    { to: '/',           label: 'Dashboard',   icon: House, end: true },
     { to: '/products',   label: 'Products',    icon: Package,         end: false },
     { to: '/categories', label: 'Categories',  icon: Tag,             end: false },
-    { to: '/suppliers',  label: 'Suppliers',   icon: Building2,       end: false },
-    { to: '/sales',      label: 'POS / Sales', icon: TrendingUp,      end: false },
+    { to: '/suppliers',  label: 'Suppliers',   icon: Building,       end: false },
+    { to: '/sales',      label: 'POS / Sales', icon: TrendUp,      end: false },
     ...(perms.canViewPurchases ? [{ to: '/purchases', label: 'Purchases', icon: ShoppingCart, end: false }] : []),
     { to: '/customers',  label: 'Customers',   icon: Users,           end: false },
-    ...(perms.canViewReports  ? [{ to: '/reports',   label: 'Reports',   icon: FileBarChart2, end: false }] : []),
+    ...(perms.canViewReports  ? [{ to: '/reports',   label: 'Reports',   icon: ChartBar, end: false }] : []),
   ];
 
   const adminNav = perms.canManageUsers
     ? [
-        { to: '/users',    label: 'Users',    icon: UserCog,  end: false },
-        { to: '/settings', label: 'Settings', icon: Settings, end: false },
+        { to: '/users',    label: 'Users',    icon: UserGear,  end: false },
+        { to: '/settings', label: 'Settings', icon: Gear, end: false },
       ]
     : [];
 
@@ -54,10 +54,10 @@ export default function Layout() {
     >
       {({ isActive }) => (
         <>
-          <div className={cn('h-7 w-7 rounded-lg flex items-center justify-center shrink-0 transition-all',
+          <div className={cn('h-8 w-8 rounded-lg flex items-center justify-center shrink-0 transition-all',
             isActive ? 'bg-white/15' : 'bg-transparent group-hover:bg-white/8'
           )}>
-            <Icon className={cn('h-4 w-4 transition-colors', isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80')} />
+            <Icon size={20} weight="bold" className={cn('transition-colors', isActive ? 'text-white' : 'text-white/40 group-hover:text-white/80')} />
           </div>
           <span className="flex-1 truncate">{label}</span>
           {isActive && <div className="h-1.5 w-1.5 rounded-full bg-blue-300 shrink-0" />}
@@ -115,8 +115,8 @@ export default function Layout() {
             </span>
           </div>
           <button onClick={handleLogout} title="Logout"
-            className="h-7 w-7 rounded-lg flex items-center justify-center text-white/30 hover:text-white hover:bg-white/10 transition-all shrink-0">
-            <LogOut className="h-3.5 w-3.5" />
+            className="h-8 w-8 rounded-lg flex items-center justify-center text-white/30 hover:text-white hover:bg-white/10 transition-all shrink-0">
+            <SignOut size={20} weight="bold" />
           </button>
         </div>
       </div>
@@ -138,8 +138,8 @@ export default function Layout() {
           <aside className="relative z-10 flex flex-col w-60 shadow-2xl">
             <div className="absolute top-3 right-3 z-10">
               <button onClick={() => setMobileOpen(false)}
-                className="h-7 w-7 rounded-lg flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
-                <X className="h-4 w-4" />
+                className="h-8 w-8 rounded-lg flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all">
+                <X size={20} weight="bold" />
               </button>
             </div>
             <SidebarContent onNav={() => setMobileOpen(false)} />
@@ -155,7 +155,7 @@ export default function Layout() {
           style={{ background: 'rgba(8,13,32,0.8)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <button onClick={() => setMobileOpen(true)}
             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all">
-            <Menu className="h-5 w-5" />
+            <List size={20} weight="bold" />
           </button>
           <span className="font-bold text-white/90 text-sm flex-1">Inventory IMS</span>
           <span className={cn('text-[9px] font-bold px-2 py-1 rounded-full border', roleBg[perms.role])}>{perms.role}</span>

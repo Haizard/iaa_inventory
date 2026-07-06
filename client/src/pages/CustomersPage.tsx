@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Search, Pencil, Trash2, Users } from 'lucide-react';
+import { Plus, MagnifyingGlass, PencilSimple, Trash, Users } from '@phosphor-icons/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -109,7 +109,7 @@ export default function CustomersPage() {
             onClick={openCreate}
             className="btn-glow flex items-center gap-2 px-4 h-9 text-white text-sm font-semibold rounded-xl transition-all"
           >
-            <Plus className="h-4 w-4" /> Add Customer
+            <Plus size={20} weight="bold" /> Add Customer
           </button>
         )}
       </div>
@@ -148,7 +148,7 @@ export default function CustomersPage() {
       {/* Search */}
       <div className="glass rounded-2xl p-4 flex gap-3 flex-wrap">
         <div className="relative max-w-sm flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+          <MagnifyingGlass size={18} weight="bold" className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
           <input
             placeholder="Search by name, email or phone..."
             value={search}
@@ -185,7 +185,7 @@ export default function CustomersPage() {
                 <TableRow>
                   <TableCell colSpan={7}>
                     <div className="flex flex-col items-center justify-center py-16 text-white/25">
-                      <Users className="h-12 w-12 mb-3 opacity-40" />
+                      <Users size={48} weight="bold" className="mb-3 opacity-40" />
                       <p className="text-sm">No customers found</p>
                     </div>
                   </TableCell>
@@ -212,7 +212,7 @@ export default function CustomersPage() {
                             onClick={() => openEdit(c)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-blue-400 hover:bg-blue-500/10 border border-white/8 transition-all"
                           >
-                            <Pencil className="h-3.5 w-3.5" />
+                            <PencilSimple className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {perms.canDeleteCustomer && (
@@ -220,7 +220,7 @@ export default function CustomersPage() {
                             onClick={() => deleteMutation.mutate(c.id)}
                             className="h-8 w-8 rounded-xl flex items-center justify-center text-white/30 hover:text-rose-400 hover:bg-rose-500/10 border border-white/8 transition-all"
                           >
-                            <Trash2 className="h-3.5 w-3.5" />
+                            <Trash className="h-3.5 w-3.5" />
                           </button>
                         )}
                         {!perms.canEditCustomer && (

@@ -1,4 +1,4 @@
-import { ShieldOff } from 'lucide-react';
+import { Shield } from '@phosphor-icons/react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface RoleGuardProps {
@@ -15,7 +15,7 @@ export default function RoleGuard({ allowed, children, message }: RoleGuardProps
       <Card className="max-w-md w-full">
         <CardContent className="pt-10 pb-10 flex flex-col items-center gap-4 text-center">
           <div className="bg-destructive/10 p-4 rounded-full">
-            <ShieldOff className="h-10 w-10 text-destructive" />
+            <Shield className="h-10 w-10 text-destructive" />
           </div>
           <div>
             <h2 className="text-xl font-semibold">Access Denied</h2>
