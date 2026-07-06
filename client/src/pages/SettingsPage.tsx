@@ -217,7 +217,7 @@ export default function SettingsPage() {
             <h2 className="text-sm font-bold text-white/80 uppercase tracking-widest">Project Documentation</h2>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full badge-info">PDF</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {docs.map(d => (
               <div key={d.id} className={`glass ${d.glass} rounded-2xl p-4 hover-lift flex flex-col gap-3`}>
                 <div className="flex items-start gap-3">
