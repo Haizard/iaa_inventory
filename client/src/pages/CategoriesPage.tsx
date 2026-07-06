@@ -183,14 +183,14 @@ export default function CategoriesPage() {
 
       {/* Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-md">
+        <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-xl mx-4">
           <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h2 className="text-lg font-bold text-white">
               {editCategory ? 'Edit Category' : 'Add Category'}
             </h2>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="px-6 py-5 space-y-4">
+            <div className="px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-white/60 mb-1.5 block">Name *</label>
                 <input

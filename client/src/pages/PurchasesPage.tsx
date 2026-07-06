@@ -196,7 +196,7 @@ export default function PurchasesPage() {
 
         {/* New Purchase Dialog */}
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-2xl">
+          <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-2xl mx-4">
             <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
                 <ShoppingCart className="h-5 w-5 text-blue-400" />
@@ -225,8 +225,8 @@ export default function PurchasesPage() {
               {/* Add item */}
               <div className="glass rounded-2xl p-4 space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">Add Item</p>
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="col-span-3 sm:col-span-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="col-span-1 sm:col-span-1 md:col-span-1">
                     <Select value={selectedProduct} onValueChange={(v) => {
                       setSelectedProduct(v);
                       const prod = products.find((p: any) => p.id === v);

@@ -188,15 +188,15 @@ export default function SuppliersPage() {
 
       {/* Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-md">
+        <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-xl mx-4">
           <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h2 className="text-lg font-bold text-white">
               {editSupplier ? 'Edit Supplier' : 'Add Supplier'}
             </h2>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="px-6 py-5 space-y-4">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">Supplier Details</p>
+            <div className="px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3 col-span-1 sm:col-span-2">Supplier Details</p>
               <div>
                 <label className="text-xs font-medium text-white/60 mb-1.5 block">Name *</label>
                 <input

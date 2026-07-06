@@ -402,7 +402,7 @@ export default function ProductsPage() {
 
       {/* Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-5xl">
+          <DialogContent className="glass-heavy rounded-2xl border-white/10 shadow-2xl p-0 overflow-hidden text-white max-w-5xl mx-4">
           <div className="px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
             <h2 className="text-lg font-bold text-white">
               {editProduct ? 'Edit Product' : 'Add Product'}
@@ -412,7 +412,7 @@ export default function ProductsPage() {
             <div className="px-6 py-5 space-y-6 max-h-[68vh] overflow-y-auto">
               <section className="space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">General</p>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="md:col-span-2">
                     <label className="text-xs font-medium text-white/60 mb-1.5 block">Product Name *</label>
                     <input {...register('name')} placeholder="Product name" className="input-glass h-10 w-full rounded-xl px-3 text-sm" />
